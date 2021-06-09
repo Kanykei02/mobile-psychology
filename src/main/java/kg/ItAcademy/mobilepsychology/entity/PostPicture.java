@@ -1,28 +1,29 @@
 package kg.ItAcademy.mobilepsychology.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-
 
 @Entity
-@Table(name = "picture")
+@Table(name = "post_picture")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Picture {
+public class PostPicture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "create_date", nullable = false)
-    private LocalDateTime createDate;
+    @ManyToOne
+    @JoinColumn(name = "picture_id", nullable = false)
+    private Picture pictureId;
 
-    @Column(name = "url", nullable = false)// подумать
-    private String url;
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post postId;
 }

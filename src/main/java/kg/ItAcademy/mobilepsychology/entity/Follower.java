@@ -8,21 +8,25 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
 @Entity
-@Table(name = "picture")
+@Table(name = "follower")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Picture {
+public class Follower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "create_date", nullable = false)
-    private LocalDateTime createDate;
+    @ManyToOne
+    @JoinColumn(name = "follower_id", nullable = false)
+    private User followerUser;
 
-    @Column(name = "url", nullable = false)// подумать
-    private String url;
+    @ManyToOne
+    @JoinColumn(name = "followed_id", nullable = false)
+    private User followedUser;
+
+    @Column(name = "date_followed")
+    private LocalDateTime dateFollowed;
 }

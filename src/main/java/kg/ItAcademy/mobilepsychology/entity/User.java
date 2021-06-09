@@ -39,4 +39,8 @@ public class User {
 
     @Column(name = "biography")
     private String biography;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_picture")
+    private Picture profilePicture;
 }

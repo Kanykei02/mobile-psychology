@@ -2,6 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
+import kg.ItAcademy.mobilepsychology.exeption.AuthorizationExeption;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
 import kg.ItAcademy.mobilepsychology.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -31,13 +33,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveWithPasswordEncode(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user = userRepository.save(user);
-        UserRole userRole = new UserRole();
-        userRole.setRoleName("ROLE_USER");
-        userRole.setUser(user);
-        userRoleService.save(userRole);
-        return user;
+        Optional<User> userLoginCheck = userRepository.findByUsername(user.getUsername());
+        Optional<User> userEmailCheck = userRepository.findByEmail(user.getEmail());
+
+        if(userLoginCheck.isPresent()){
+            throw new AuthorizationExeption("Такой логин уже существует!");
+        } else if (userEmailCheck.isPresent()) {
+            throw new AuthorizationExeption("Введите другой Email");
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user = userRepository.save(user);
+            UserRole userRole = new UserRole();
+            userRole.setRoleName("ROLE_USER");
+            userRole.setUser(user);
+            userRoleService.save(userRole);
+            return user;
+        }
     }
 
     @Override

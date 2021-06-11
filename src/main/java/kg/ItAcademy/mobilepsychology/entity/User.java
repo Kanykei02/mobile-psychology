@@ -40,6 +40,9 @@ public class User {
     @Column(name = "biography")
     private String biography;
 
+    @Column(name = "status")
+    private Long status;
+
     @ManyToOne
     @JoinColumn(name = "profile_picture")
     private Picture profilePicture;

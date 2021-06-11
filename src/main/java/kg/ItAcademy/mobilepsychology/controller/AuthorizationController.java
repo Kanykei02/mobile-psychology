@@ -4,6 +4,8 @@ import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
 import kg.ItAcademy.mobilepsychology.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +18,13 @@ public class AuthorizationController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public User save(@RequestBody User user) {
-        return userService.saveWithPasswordEncode(user);
+    public ResponseEntity save(@RequestBody User user) throws Exception {
+        try {
+            User user1 = userService.saveWithPasswordEncode(user);
+            return new ResponseEntity<>(user1, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @PostMapping("/sign-in")

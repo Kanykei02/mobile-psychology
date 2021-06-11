@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +30,6 @@ public class Post {
     @Column(name = "info", nullable = false)
     private String info;
 
-
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
 }

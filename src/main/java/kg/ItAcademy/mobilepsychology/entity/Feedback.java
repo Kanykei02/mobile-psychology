@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "feedback")
@@ -32,4 +33,7 @@ public class Feedback {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
 }

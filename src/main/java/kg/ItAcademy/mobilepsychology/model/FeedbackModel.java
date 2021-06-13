@@ -1,6 +1,5 @@
 package kg.ItAcademy.mobilepsychology.model;
 
-import kg.ItAcademy.mobilepsychology.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

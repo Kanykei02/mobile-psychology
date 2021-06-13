@@ -31,19 +31,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/users/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("USER")
 
-                .antMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
 
+                .antMatchers(HttpMethod.GET, "/api/comment/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/comment/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/comment/**").permitAll()
 
+                .antMatchers(HttpMethod.GET, "/api/like/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/like/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/like/**").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/api/follower/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/follower/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/follower/**").permitAll()
 
-                .antMatchers(HttpMethod.POST, "/api/feedback").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/feedback").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/feedback").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/feedback").hasRole("USER")
 
-                .antMatchers(HttpMethod.POST, "/api/timetable/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/api/roles/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/roles/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/roles").hasRole("ADMIN")
                 .and()
                 .httpBasic()
                 .and().logout().and().formLogin() ;
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)

@@ -7,6 +7,8 @@ import kg.ItAcademy.mobilepsychology.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserRoleServiceImpl implements UserRoleService{
 
@@ -34,7 +36,22 @@ public class UserRoleServiceImpl implements UserRoleService{
     }
 
     @Override
+    public List<UserRole> getAllRoles(){
+        return userRoleRepository.findAll();
+    }
+
+    @Override
     public UserRole findById(Long id) {
         return userRoleRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public UserRole deleteById(Long id) {
+        UserRole userRole = findById(id);
+        if(userRole != null){
+            userRoleRepository.delete(userRole);
+            return userRole;
+        }
+        return null;
     }
 }

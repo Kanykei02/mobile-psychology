@@ -1,4 +1,4 @@
 package kg.ItAcademy.mobilepsychology.service;
 
-public class WalletService {
+public interface WalletService {
 }

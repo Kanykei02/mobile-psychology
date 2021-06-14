@@ -24,7 +24,7 @@ public class Timetable {
     private User psychologistId;
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false) // Тоже связь
+    @JoinColumn(name = "user_id", nullable = false) // Тоже связь
     private User user;
 
     @Column(name = "meeting_date")

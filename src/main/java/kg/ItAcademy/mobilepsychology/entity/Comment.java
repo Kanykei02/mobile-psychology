@@ -21,7 +21,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
-    private Post postId;
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "commentator", nullable = false) // Тоже связь

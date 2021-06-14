@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = Comment.builder()
                 .createdDate(LocalDateTime.now())
                 .text(commentModel.getText())
-                .postId(post)
+                .post(post)
                 .commentatorUser(user)
                 .build();
         return commentRepository.save(comment);

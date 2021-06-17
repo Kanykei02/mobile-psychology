@@ -2,7 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
-import kg.ItAcademy.mobilepsychology.exeption.AuthorizationExeption;
+import kg.ItAcademy.mobilepsychology.exception.AuthorizationException;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
 import kg.ItAcademy.mobilepsychology.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService{
         Optional<User> userEmailCheck = userRepository.findByEmail(user.getEmail());
 
         if(userLoginCheck.isPresent()){
-            throw new AuthorizationExeption("Такой логин уже существует!");
+            throw new AuthorizationException("Такой логин уже существует!");
         } else if (userEmailCheck.isPresent()) {
-            throw new AuthorizationExeption("Введите другой Email");
+            throw new AuthorizationException("Введите другой Email");
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user = userRepository.save(user);
@@ -47,6 +47,9 @@ public class UserServiceImpl implements UserService{
             userRole.setRoleName("ROLE_USER");
             userRole.setUser(user);
             userRoleService.save(userRole);
+            User user1 = new User();
+            user1.setStatus(1L);
+            userRepository.save(user1);
             return user;
         }
     }

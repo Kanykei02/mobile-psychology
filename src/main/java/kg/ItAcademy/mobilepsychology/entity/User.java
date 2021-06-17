@@ -40,7 +40,7 @@ public class User {
     @Column(name = "biography")
     private String biography;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Long status;
 
     @ManyToOne

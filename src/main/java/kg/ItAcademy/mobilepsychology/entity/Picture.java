@@ -25,4 +25,10 @@ public class Picture {
 
     @Column(name = "url", nullable = false)// подумать
     private String url;
+
+    @Column(name = "format", nullable = false)
+    private String format;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 }

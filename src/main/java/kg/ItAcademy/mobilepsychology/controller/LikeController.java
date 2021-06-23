@@ -30,7 +30,7 @@ public class LikeController {
     }
 
     @DeleteMapping("/{likeId}")
-    public Like deleteById(@PathVariable Long likeId){
-        return likeService.deleteById(likeId);
+    public void deleteById(@PathVariable Long likeId){
+        likeService.deleteById(likeId);
     }
 }

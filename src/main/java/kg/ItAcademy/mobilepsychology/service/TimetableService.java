@@ -10,6 +10,6 @@ public interface TimetableService {
     Timetable save(TimetableModel timetableModel);
     List<Timetable> getAllTimetables();
     Timetable findById(Long id);
-    Timetable deleteById(Long id);
+    void deleteById(Long id);
     List<Timetable> findAllByUsername(String username);
 }

@@ -59,12 +59,7 @@ public class LikeServiceImpl implements LikeService{
     }
 
     @Override
-    public Like deleteById(Long id) {
-        Like like = findById(id);
-        if(like != null){
-            likeRepository.delete(like);
-            return like;
-        }
-        return null;
+    public void deleteById(Long id) {
+        likeRepository.deleteById(id);
     }
 }

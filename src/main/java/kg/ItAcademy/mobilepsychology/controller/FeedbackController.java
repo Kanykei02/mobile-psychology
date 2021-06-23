@@ -38,7 +38,7 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/{feedbackId}")
-    public Feedback deleteById(@PathVariable Long feedbackId){
-        return feedbackService.deleteById(feedbackId);
+    public void deleteById(@PathVariable Long feedbackId){
+         feedbackService.deleteById(feedbackId);
     }
 }

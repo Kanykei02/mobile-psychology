@@ -1,7 +1,7 @@
 package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.Follower;
-import kg.ItAcademy.mobilepsychology.exception.FollowerNotFoundException;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.FollowerModel;
 import kg.ItAcademy.mobilepsychology.service.FollowerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class FollowerController {
     }
 
     @PostMapping
-    public ResponseEntity createOrUpdate(@RequestBody FollowerModel followerModel) throws FollowerNotFoundException{
+    public ResponseEntity createOrUpdate(@RequestBody FollowerModel followerModel) throws ObjectNotFoundException {
         try {
             Follower followerModelName = followerService.save(followerModel);
             return new ResponseEntity<>(followerModelName, HttpStatus.OK);
@@ -33,10 +33,10 @@ public class FollowerController {
         }
     }
 
-    @GetMapping("/{listId}")
-    public ResponseEntity getById(@PathVariable Long listId) throws FollowerNotFoundException {
+    @GetMapping("/{followerId}")
+    public ResponseEntity getById(@PathVariable Long followerId) throws ObjectNotFoundException {
         try{
-            Follower followerListId = followerService.findById(listId);
+            Follower followerListId = followerService.findById(followerId);
             return new ResponseEntity<>(followerListId, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class FollowerController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity findMyFollowers() throws FollowerNotFoundException{
+    public ResponseEntity findMyFollowers() throws ObjectNotFoundException {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             List<Follower> followerListByUsername = followerService.findAllByUsername(username);
@@ -54,8 +54,8 @@ public class FollowerController {
         }
     }
 
-    @DeleteMapping("/{listId}")
-    public void deleteById(@PathVariable Long listId){
-        followerService.deleteById(listId);
+    @DeleteMapping("/{followerId}")
+    public void deleteById(@PathVariable Long followerId){
+        followerService.deleteById(followerId);
     }
 }

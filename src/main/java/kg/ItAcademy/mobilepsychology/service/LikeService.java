@@ -11,5 +11,5 @@ public interface LikeService {
     List<Like> getAllLikes();
     Like findById(Long id);
     List<Like> findAllByUsername(String name);
-    Like deleteById(Long id);
+    void deleteById(Long id);
 }

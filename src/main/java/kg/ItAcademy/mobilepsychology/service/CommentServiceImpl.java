@@ -61,12 +61,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment deleteById(Long id) {
-        Comment comment = findById(id);
-        if(comment != null){
-            commentRepository.delete(comment);
-            return comment;
-        }
-        return null;
+    public void deleteById(Long id) {
+        commentRepository.deleteById(id);
     }
 }

@@ -2,7 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.Follower;
 import kg.ItAcademy.mobilepsychology.entity.User;
-import kg.ItAcademy.mobilepsychology.exception.FollowerNotFoundException;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.FollowerModel;
 import kg.ItAcademy.mobilepsychology.repository.FollowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,16 @@ public class FollowerServiceImpl implements FollowerService{
     }
 
     @Override
-    public Follower save(FollowerModel followerModel) throws FollowerNotFoundException {
+    public Follower save(FollowerModel followerModel) throws ObjectNotFoundException {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(username);
         User user1 = userService.findById(followerModel.getFollowedUser());
 
         Optional<Follower> followerCheckById = followerRepository.findById(user1.getId());
         if(followerCheckById.isPresent()){
-            throw new FollowerNotFoundException("Вы уже подписаны!");
+            throw new ObjectNotFoundException("Вы уже подписаны!");
         } else if(user == user1){
-            throw new FollowerNotFoundException("Это не допустимо!");
+            throw new ObjectNotFoundException("Это не допустимо!");
         } else {
             Follower follower = Follower.builder()
                     .dateFollowed(LocalDateTime.now())
@@ -54,8 +54,8 @@ public class FollowerServiceImpl implements FollowerService{
     }
 
     @Override
-    public Follower findById(Long id) throws FollowerNotFoundException {
-        return followerRepository.findById(id).orElseThrow(() -> new FollowerNotFoundException("Подписчик не найден: ", id));
+    public Follower findById(Long id) throws ObjectNotFoundException {
+        return followerRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Подписчик не найден: ", id));
     }
 
     @Override
@@ -64,10 +64,10 @@ public class FollowerServiceImpl implements FollowerService{
     }
 
     @Override
-    public List<Follower> findAllByUsername(String username) throws FollowerNotFoundException{
+    public List<Follower> findAllByUsername(String username) throws ObjectNotFoundException {
         List<Follower> followerCheckByUsername = followerRepository.findAllByFollowerUser_Username(new User().getUsername());
         if(followerCheckByUsername == null){
-            throw new FollowerNotFoundException("Что-то пошло не так!");
+            throw new ObjectNotFoundException("Что-то пошло не так!");
         } else {
             return followerRepository.findAllByFollowerUser_Username(username);
         }

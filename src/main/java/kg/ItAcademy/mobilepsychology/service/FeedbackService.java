@@ -11,5 +11,5 @@ public interface FeedbackService {
     List<Feedback> getAllFeedbacks();
     Feedback findById(Long id);
     List<Feedback> findAllByUsername(String username);
-    Feedback deleteById(Long id);
+    void deleteById(Long id);
 }

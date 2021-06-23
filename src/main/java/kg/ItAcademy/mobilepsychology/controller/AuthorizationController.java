@@ -37,5 +37,13 @@ public class AuthorizationController {
         return userService.getAllUsers();
     }
 
+    @DeleteMapping("/{userId}")
+    public void deleteById(@PathVariable Long userId){
+        userService.deleteById(userId);
+    }
 
+    @GetMapping("/{userId}")
+    public User getById(@PathVariable Long userId){
+        return userService.findById(userId);
+    }
 }

@@ -38,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("USER")
 
                 .antMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/posts/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/posts/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
 
                 .antMatchers(HttpMethod.GET, "/api/comment/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/comment/**").permitAll()
@@ -57,13 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/feedback").hasRole("USER")
                 .antMatchers(HttpMethod.DELETE, "/api/feedback").hasRole("USER")
 
-                .antMatchers(HttpMethod.GET, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/timetable/**").hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
 
-                .antMatchers(HttpMethod.GET, "/api/roles/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/roles/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/roles").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/roles/**").permitAll()//hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/roles/**").permitAll()//hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/roles").permitAll()//hasRole("ADMIN")
                 .and()
                 .httpBasic()
                 .and().logout().and().formLogin() ;

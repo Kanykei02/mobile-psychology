@@ -52,13 +52,8 @@ public class TimetableServiceImpl implements TimetableService{
     }
 
     @Override
-    public Timetable deleteById(Long id) {
-        Timetable timetable = findById(id);
-        if(timetable != null){
-            timetableRepository.delete(timetable);
-            return timetable;
-        }
-        return null;
+    public void deleteById(Long id) {
+        timetableRepository.deleteById(id);
     }
 
     @Override

@@ -10,5 +10,5 @@ public interface UserRoleService {
     UserRole save(RoleModel userRoleModel);
     List<UserRole> getAllRoles();
     UserRole findById(Long id);
-    UserRole deleteById(Long id);
+    void deleteById(Long id);
 }

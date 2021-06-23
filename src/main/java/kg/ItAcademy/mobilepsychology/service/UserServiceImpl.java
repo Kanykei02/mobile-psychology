@@ -3,6 +3,7 @@ package kg.ItAcademy.mobilepsychology.service;
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
 import kg.ItAcademy.mobilepsychology.exception.AuthorizationException;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
 import kg.ItAcademy.mobilepsychology.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,22 +42,15 @@ public class UserServiceImpl implements UserService{
         } else if (userEmailCheck.isPresent()) {
             throw new AuthorizationException("Введите другой Email");
         } else {
+            user.setStatus(1L);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user = userRepository.save(user);
             UserRole userRole = new UserRole();
             userRole.setRoleName("ROLE_USER");
             userRole.setUser(user);
             userRoleService.save(userRole);
-            User user1 = new User();
-            user1.setStatus(1L);
-            userRepository.save(user1);
             return user;
         }
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
     }
 
     @Override
@@ -80,17 +74,32 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public User findById(Long id) throws ObjectNotFoundException {
+        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Пользователь не найден: ", id));
     }
 
     @Override
-    public User deleteById(Long id){
-        User user = findById(id);
-        if (user != null){
-            userRepository.delete(user);
-            return user;
+    public User findByUsername(String username) throws ObjectNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("Пользователь не найден: ", username));
+    }
+
+    @Override
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public User changeStatusById(Long userId) throws ObjectNotFoundException {
+        User user1 = findById(userId);
+
+        if(user1 == null) return null;
+
+        if (user1.getStatus() == 1) {
+            user1.setStatus(0l);
+        } else if (user1.getStatus() == 0) {
+            user1.setStatus(1l);
         }
-        return null;
+
+        return save(user1);
     }
 }

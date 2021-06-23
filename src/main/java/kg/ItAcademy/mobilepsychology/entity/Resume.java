@@ -39,4 +39,5 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "picture")
     private Picture picture;
+    //добавить статус
 }

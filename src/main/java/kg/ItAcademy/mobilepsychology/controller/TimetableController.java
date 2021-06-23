@@ -31,8 +31,8 @@ public class TimetableController {
     }
 
     @DeleteMapping("/{timetableId}")
-    public Timetable deleteById(@PathVariable Long timetableId){
-        return timetableService.deleteById(timetableId);
+    public void deleteById(@PathVariable Long timetableId){
+         timetableService.deleteById(timetableId);
     }
 
     @GetMapping("/my")

@@ -2,6 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.Post;
 import kg.ItAcademy.mobilepsychology.entity.User;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.PostModel;
 import kg.ItAcademy.mobilepsychology.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +45,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findById(Long id) {
-        return postRepository.findById(id).orElse(null);
+    public Post findById(Long id) throws ObjectNotFoundException {
+        return postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Не найдено: ", id));
     }
 
     @Override
-    public Post deleteById(Long id) {
-        Post post = findById(id);
-        if(post != null){
-            postRepository.delete(post);
-            return post;
-        }
-        return null;
+    public void deleteById(Long id) {
+        postRepository.deleteById(id);
     }
 
     @Override

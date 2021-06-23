@@ -3,6 +3,7 @@ package kg.ItAcademy.mobilepsychology.service;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import kg.ItAcademy.mobilepsychology.entity.Picture;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.repository.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class PictureServiceImpl implements PictureService{
     }
 
     @Override
-    public Picture getById(Long id) {
-        return pictureRepository.getById(id);
+    public Picture getById(Long id) throws ObjectNotFoundException {
+        return pictureRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Не найдено: ", id));
     }
 }

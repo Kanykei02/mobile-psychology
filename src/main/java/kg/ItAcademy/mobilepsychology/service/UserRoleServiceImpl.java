@@ -2,8 +2,10 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.RoleModel;
 import kg.ItAcademy.mobilepsychology.repository.RoleRepository;
+import org.hibernate.ObjectDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +43,12 @@ public class UserRoleServiceImpl implements UserRoleService{
     }
 
     @Override
-    public UserRole findById(Long id) {
-        return userRoleRepository.findById(id).orElse(null);
+    public UserRole findById(Long id) throws ObjectDeletedException {
+        return userRoleRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Роль не найдена: ", id));
     }
 
     @Override
-    public UserRole deleteById(Long id) {
-        UserRole userRole = findById(id);
-        if(userRole != null){
-            userRoleRepository.delete(userRole);
-            return userRole;
-        }
-        return null;
+    public void deleteById(Long id) {
+        userRoleRepository.deleteById(id);
     }
 }

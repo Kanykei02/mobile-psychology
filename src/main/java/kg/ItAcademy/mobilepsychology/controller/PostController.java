@@ -1,9 +1,12 @@
 package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.Post;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.PostModel;
 import kg.ItAcademy.mobilepsychology.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +29,13 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post getById(@PathVariable Long postId){
-        return postService.findById(postId);
+    public ResponseEntity getById(@PathVariable Long postId) {
+        try{
+            Post postsId = postService.findById(postId);
+            return new ResponseEntity<>(postsId, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/my")
@@ -37,7 +45,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public Post deleteById(@PathVariable Long postId){
-        return postService.deleteById(postId);
+    public void deleteById(@PathVariable Long postId){
+        postService.deleteById(postId);
     }
 }

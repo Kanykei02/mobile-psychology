@@ -6,10 +6,10 @@ public class AuthorizationException extends RuntimeException{
     public AuthorizationException(){}
 
     public AuthorizationException(String message, Long id){
-        super("К сожалению, это не допустимо: " + message + id);
+        super("Ошибка: " + message + id);
     }
 
     public AuthorizationException(String message){
-        super("К сожалению, это не допустимо: " + message);
+        super("Ошибка: " + message);
     }
 }

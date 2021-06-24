@@ -18,11 +18,12 @@ public class AuthorizationController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity save(@RequestBody User user) throws AuthorizationException {
+    public ResponseEntity save(@RequestBody User user) {
         try {
             User user1 = userService.saveWithPasswordEncode(user);
             return new ResponseEntity<>(user1, HttpStatus.OK);
-        } catch (Exception e){
+        } catch (AuthorizationException e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
     }

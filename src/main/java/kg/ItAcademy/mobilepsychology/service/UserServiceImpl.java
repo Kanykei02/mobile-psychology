@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService{
         Optional<User> userEmailCheck = userRepository.findByEmail(user.getEmail());
 
         if(userLoginCheck.isPresent()){
-            throw new AuthorizationException("Такой логин уже существует!");
+            throw new AuthorizationException("Ошибка!");
         } else if (userEmailCheck.isPresent()) {
-            throw new AuthorizationException("Введите другой Email");
+            throw new AuthorizationException("Ошибка");
         } else {
             user.setStatus(1L);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -85,6 +85,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteById(Long id){
+        UserRole userRoleByUserId = userRoleService.getUserRoleByUserId(id);
+        userRoleService.deleteById(userRoleByUserId.getId());
         userRepository.deleteById(id);
     }
 

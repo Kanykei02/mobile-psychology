@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepository extends JpaRepository<UserRole, Long> {
+    UserRole findByUserId(Long id);
 }

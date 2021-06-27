@@ -35,9 +35,9 @@ public class FollowerServiceImpl implements FollowerService{
 
         Optional<Follower> followerCheckById = followerRepository.findById(user1.getId());
         if(followerCheckById.isPresent()){
-            throw new ObjectNotFoundException("Вы уже подписаны!");
+            throw new ObjectNotFoundException("Error!");
         } else if(user == user1){
-            throw new ObjectNotFoundException("Это не допустимо!");
+            throw new ObjectNotFoundException("Error!");
         } else {
             Follower follower = Follower.builder()
                     .dateFollowed(LocalDateTime.now())
@@ -65,9 +65,9 @@ public class FollowerServiceImpl implements FollowerService{
 
     @Override
     public List<Follower> findAllByUsername(String username) throws ObjectNotFoundException {
-        List<Follower> followerCheckByUsername = followerRepository.findAllByFollowerUser_Username(new User().getUsername());
+        List<Follower> followerCheckByUsername = followerRepository.findAllByFollowerUser_Username(username);
         if(followerCheckByUsername == null){
-            throw new ObjectNotFoundException("Что-то пошло не так!");
+            throw new ObjectNotFoundException("Error!");
         } else {
             return followerRepository.findAllByFollowerUser_Username(username);
         }

@@ -38,11 +38,12 @@ public class UserServiceImpl implements UserService{
         Optional<User> userEmailCheck = userRepository.findByEmail(user.getEmail());
 
         if(userLoginCheck.isPresent()){
-            throw new AuthorizationException("Ошибка!");
+            throw new AuthorizationException("Error!");
         } else if (userEmailCheck.isPresent()) {
-            throw new AuthorizationException("Ошибка");
+            throw new AuthorizationException("Error");
         } else {
             user.setStatus(1L);
+            user.getProfilePicture();
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user = userRepository.save(user);
             UserRole userRole = new UserRole();
@@ -57,30 +58,30 @@ public class UserServiceImpl implements UserService{
     public String getTokenByAuthModel(AuthorizationModel authorizationModel) {
         String authResult = "";
         User user = findByUsername(authorizationModel.getUsername());
-        if(user == null) authResult = "Неверный логин/пароль";
+        if(user == null) authResult = "Error";
         else {
             if(passwordEncoder.matches(authorizationModel.getPassword(), user.getPassword())) {
                 String loginPassPair = user.getUsername() + ":" + authorizationModel.getPassword();
                 authResult = "Basic " + Base64.getEncoder().encodeToString(loginPassPair.getBytes());
-            } else authResult = "Неверный логин/пароль";
+            } else authResult = "Error";
         }
         return authResult;
     }
 
     @Override
     public List<User> getAllUsers(){
-        System.out.println("Пользователь: " + SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         return userRepository.findAll();
     }
 
     @Override
     public User findById(Long id) throws ObjectNotFoundException {
-        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Пользователь не найден: ", id));
+        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Error ", id));
     }
 
     @Override
     public User findByUsername(String username) throws ObjectNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("Пользователь не найден: ", username));
+        return userRepository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("Error ", username));
     }
 
     @Override
@@ -91,17 +92,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User changeStatusById(Long userId) throws ObjectNotFoundException {
+    public User changeStatusById(Long userId) {
         User user1 = findById(userId);
-
         if(user1 == null) return null;
-
-        if (user1.getStatus() == 1) {
-            user1.setStatus(0l);
-        } else if (user1.getStatus() == 0) {
-            user1.setStatus(1l);
+        else {
+            if (user1.getStatus() == 1) {
+                user1.setStatus(0l);
+            } else if (user1.getStatus() == 0) {
+                user1.setStatus(1l);
+            }
         }
-
         return save(user1);
     }
 }

@@ -1,9 +1,12 @@
 package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.Comment;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.CommentsModel;
 import kg.ItAcademy.mobilepsychology.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +30,13 @@ public class CommentController {
     }
 
     @GetMapping("/{commentId}")
-    public Comment getByID(@PathVariable Long commentId){
-        return commentService.findById(commentId);
+    public ResponseEntity getByID(@PathVariable Long commentId) throws ObjectNotFoundException {
+        try {
+            Comment comment = commentService.findById(commentId);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/my/comments")

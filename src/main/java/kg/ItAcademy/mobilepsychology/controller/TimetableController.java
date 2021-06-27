@@ -4,6 +4,8 @@ import kg.ItAcademy.mobilepsychology.entity.Timetable;
 import kg.ItAcademy.mobilepsychology.model.TimetableModel;
 import kg.ItAcademy.mobilepsychology.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,13 @@ public class TimetableController {
     private TimetableService timetableService;
 
     @PostMapping
-    public Timetable createOrUpdate(@RequestBody TimetableModel timetableModel){
-        return timetableService.save(timetableModel);
+    public ResponseEntity createOrUpdate(@RequestBody TimetableModel timetableModel){
+        try{
+            Timetable timetable = timetableService.save(timetableModel);
+            return new ResponseEntity<>(timetable, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping
@@ -26,8 +33,13 @@ public class TimetableController {
     }
 
     @GetMapping("/{timetableId}")
-    public Timetable getById(@PathVariable Long timetableId){
-        return timetableService.findById(timetableId);
+    public ResponseEntity getById(@PathVariable Long timetableId){
+        try{
+            Timetable timetable = timetableService.findById(timetableId);
+            return new ResponseEntity<>(timetable, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{timetableId}")

@@ -46,7 +46,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findById(Long id) throws ObjectNotFoundException {
-        return postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Не найдено: ", id));
+        return postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error ", id));
     }
 
     @Override

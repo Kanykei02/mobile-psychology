@@ -2,6 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.Timetable;
 import kg.ItAcademy.mobilepsychology.entity.User;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.TimetableModel;
 import kg.ItAcademy.mobilepsychology.repository.TimetableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,20 @@ public class TimetableServiceImpl implements TimetableService{
         User user = userService.findByUsername(username);
         User user1 = userService.findById(timetableModel.getUser());
 
-        Timetable timetable = Timetable.builder()
-                .createdDate(LocalDateTime.now())
-                .dateTime(timetableModel.getDateTime())
-                .psychologistId(user)
-                .description(timetableModel.getDescription())
-                .user(user1)
-                .build();
-        return timetableRepository.save(timetable);
+        if (user1 == null) {
+            throw new ObjectNotFoundException("Error!");
+        } else if (user1 == user) {
+            throw new ObjectNotFoundException("Error");
+        } else {
+            Timetable timetable = Timetable.builder()
+                    .createdDate(LocalDateTime.now())
+                    .dateTime(timetableModel.getDateTime())
+                    .psychologistId(user)
+                    .description(timetableModel.getDescription())
+                    .user(user1)
+                    .build();
+            return timetableRepository.save(timetable);
+        }
     }
 
     @Override
@@ -47,8 +54,8 @@ public class TimetableServiceImpl implements TimetableService{
     }
 
     @Override
-    public Timetable findById(Long id) {
-        return timetableRepository.findById(id).orElse(null);
+    public Timetable findById(Long id) throws ObjectNotFoundException {
+        return timetableRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error ", id));
     }
 
     @Override

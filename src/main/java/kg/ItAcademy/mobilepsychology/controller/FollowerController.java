@@ -44,14 +44,9 @@ public class FollowerController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity findMyFollowers() throws ObjectNotFoundException {
-        try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            List<Follower> followerListByUsername = followerService.findAllByUsername(username);
-            return new ResponseEntity<>(followerListByUsername, HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
+    public List<Follower> findMyFollowers() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return followerService.findAllByUsername(username);
     }
 
     @DeleteMapping("/{followerId}")

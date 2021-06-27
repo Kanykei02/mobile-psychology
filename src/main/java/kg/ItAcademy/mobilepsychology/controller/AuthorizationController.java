@@ -2,6 +2,7 @@ package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.exception.AuthorizationException;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
 import kg.ItAcademy.mobilepsychology.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,27 @@ public class AuthorizationController {
     }
 
     @GetMapping("/{userId}")
-    public User getById(@PathVariable Long userId){
-        return userService.findById(userId);
+    public ResponseEntity getById(@PathVariable Long userId) throws ObjectNotFoundException{
+        try {
+            User userListId = userService.findById(userId);
+            return new ResponseEntity<>(userListId, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/{userId}")
+    public User changeUserStatusById(@PathVariable Long userId) {
+        return userService.changeStatusById(userId);
+    }
+
+    @PostMapping("/{username}")
+    public ResponseEntity findUserByUsername(@PathVariable String username){
+        try {
+            User userListUsername = userService.findByUsername(username);
+            return new ResponseEntity<>(userListUsername, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 }

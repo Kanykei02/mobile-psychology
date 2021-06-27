@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,8 @@ public class PictureServiceImpl implements PictureService{
             picture.setName((String) uploadResult.get("public_id"));
             picture.setUrl((String) uploadResult.get("url"));
             picture.setFormat((String) uploadResult.get("format"));
-
+            picture.setCreateDate(LocalDateTime.now());
+            System.out.println(picture.getUrl());
             return pictureRepository.save(picture);
 
         } catch (Exception e) {
@@ -52,6 +54,6 @@ public class PictureServiceImpl implements PictureService{
 
     @Override
     public Picture getById(Long id) throws ObjectNotFoundException {
-        return pictureRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Не найдено: ", id));
+        return pictureRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error: ", id));
     }
 }

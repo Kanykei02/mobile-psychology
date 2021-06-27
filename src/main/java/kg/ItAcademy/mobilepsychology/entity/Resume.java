@@ -24,9 +24,6 @@ public class Resume {
     @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
-    @Column(name = "to_admin", nullable = false)// подумать
-    private String toAdmin;
-
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -39,5 +36,8 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "picture")
     private Picture picture;
-    //добавить статус
+    //добавить статус три статуса(рассмотрен, отклонен, на рассмотрение)
+    //получать по статусам()
+    //обновление заявки по статусу/айди
+    //файнд бай резюме) в репо
 }

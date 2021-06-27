@@ -1,9 +1,12 @@
 package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.Like;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.LikeModel;
 import kg.ItAcademy.mobilepsychology.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,13 @@ public class LikeController {
     private LikeService likeService;
 
     @PostMapping
-    public Like createOrUpdate(@RequestBody LikeModel likeModel){
-        return likeService.save(likeModel);
+    public ResponseEntity createOrUpdate(@RequestBody LikeModel likeModel) throws ObjectNotFoundException {
+        try {
+            Like likeModelName = likeService.save(likeModel);
+            return new ResponseEntity<>(likeModelName, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping
@@ -25,8 +33,13 @@ public class LikeController {
     }
 
     @GetMapping("/{likeId}")
-    public Like getById(@PathVariable Long likeId){
-        return likeService.findById(likeId);
+    public ResponseEntity getById(@PathVariable Long likeId) throws ObjectNotFoundException{
+        try {
+            Like like = likeService.findById(likeId);
+            return new ResponseEntity<>(like, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{likeId}")

@@ -3,6 +3,7 @@ package kg.ItAcademy.mobilepsychology.service;
 import kg.ItAcademy.mobilepsychology.entity.Comment;
 import kg.ItAcademy.mobilepsychology.entity.Post;
 import kg.ItAcademy.mobilepsychology.entity.User;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.CommentsModel;
 import kg.ItAcademy.mobilepsychology.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment findById(Long id) {
-        return commentRepository.findById(id).orElse(null);
+    public Comment findById(Long id) throws ObjectNotFoundException {
+        return commentRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error: ", id));
     }
 
     @Override

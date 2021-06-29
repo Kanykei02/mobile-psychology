@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
     public User saveWithPasswordEncode(UserModel userModel) {
         Optional<User> userLoginCheck = userRepository.findByUsername(userModel.getUsername());
         Optional<User> userEmailCheck = userRepository.findByEmail(userModel.getEmail());
-        //Picture picture = pictureService.getById(userModel.getProfilePicture());
+        Picture picture = pictureService.getById(userModel.getProfilePicture());
 
         if(userLoginCheck.isPresent()){
             throw new AuthorizationException("This username already exists!");
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService{
                     .fullName(userModel.getFullName())
                     .gender(userModel.getGender())
                     .username(userModel.getUsername())
-                    //.profilePicture(picture)
+                    .profilePicture(picture)
                     .build();
             user1.setStatus(1L);
             user1.setPassword(passwordEncoder.encode(userModel.getPassword()));

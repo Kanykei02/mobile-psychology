@@ -20,7 +20,7 @@ public class AuthorizationController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity save(@RequestBody UserModel user) {
+    public ResponseEntity save(@PathVariable UserModel user) {
         try {
             User user1 = userService.saveWithPasswordEncode(user);
             return new ResponseEntity<>(user1, HttpStatus.OK);

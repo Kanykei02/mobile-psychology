@@ -36,6 +36,8 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "picture")
     private Picture picture;
+
+
     //добавить статус три статуса(рассмотрен, отклонен, на рассмотрение)
     //получать по статусам()
     //обновление заявки по статусу/айди

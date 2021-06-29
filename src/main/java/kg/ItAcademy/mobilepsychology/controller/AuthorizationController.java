@@ -4,6 +4,7 @@ import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.exception.AuthorizationException;
 import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
+import kg.ItAcademy.mobilepsychology.model.UserModel;
 import kg.ItAcademy.mobilepsychology.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class AuthorizationController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity save(@RequestBody User user) {
+    public ResponseEntity save(@RequestBody UserModel user) {
         try {
             User user1 = userService.saveWithPasswordEncode(user);
             return new ResponseEntity<>(user1, HttpStatus.OK);

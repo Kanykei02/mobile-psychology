@@ -3,11 +3,12 @@ package kg.ItAcademy.mobilepsychology.service;
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.AuthorizationModel;
+import kg.ItAcademy.mobilepsychology.model.UserModel;
 
 import java.util.List;
 
 public interface UserService {
-    User saveWithPasswordEncode(User user);
+    User saveWithPasswordEncode(UserModel userModel);
     User save(User user);
     List<User> getAllUsers();
     User findById(Long id) throws ObjectNotFoundException;

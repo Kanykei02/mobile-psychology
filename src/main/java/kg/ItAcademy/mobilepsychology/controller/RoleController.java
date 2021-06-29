@@ -33,4 +33,9 @@ public class RoleController {
     public void deleteById(@PathVariable Long id){
          userRoleService.deleteById(id);
     }
+
+    @PostMapping("/{id}/{userId}")
+    public UserRole changeUserRoleById(@PathVariable Long id, RoleModel userId){
+        return userRoleService.changeUserRoleById(id, userId);
+    }
 }

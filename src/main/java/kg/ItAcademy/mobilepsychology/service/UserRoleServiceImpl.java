@@ -4,6 +4,7 @@ import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
 import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.RoleModel;
+import kg.ItAcademy.mobilepsychology.model.UserModel;
 import kg.ItAcademy.mobilepsychology.repository.RoleRepository;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,26 @@ public class UserRoleServiceImpl implements UserRoleService{
         userRole.setRoleName(userRoleModel.getRoleName());
         User user = userService.findById(userRoleModel.getUserId());
 
-        if(user == null) throw new IllegalArgumentException("Пользователь с ID " + userRoleModel.getUserId() + " не найден");
+        if(user == null) throw new IllegalArgumentException("User with this ID " + userRoleModel.getUserId() + " not found");
         userRole.setUser(user);
 
+        return userRoleRepository.save(userRole);
+    }
+
+    @Override
+    public UserRole changeUserRoleById(Long id, RoleModel userId) {
+        UserRole userRole = findById(id);
+        User user = userService.findById(userId.getUserId());
+        if(user == null) throw new IllegalArgumentException("User not found");
+        else {
+            if(userRole.getRoleName().equals("ROLE_USER")){
+                userRole.setRoleName("ROLE_PSYCHOLOGIST");
+                userRole.setUser(user);
+            } else if (userRole.getRoleName().equals("ROLE_PSYCHOLOGIST")){
+                userRole.setRoleName("ROLE_USER");
+                userRole.setUser(user);
+            }
+        }
         return userRoleRepository.save(userRole);
     }
 
@@ -44,7 +62,7 @@ public class UserRoleServiceImpl implements UserRoleService{
 
     @Override
     public UserRole findById(Long id) throws ObjectDeletedException {
-        return userRoleRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Роль не найдена: ", id));
+        return userRoleRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Role not found: ", id));
     }
 
     @Override

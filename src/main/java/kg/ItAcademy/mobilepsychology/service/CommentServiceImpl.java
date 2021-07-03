@@ -35,7 +35,9 @@ public class CommentServiceImpl implements CommentService{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(username);
         Post post = postService.findById(commentModel.getPostId());
-        if(post == null) throw new  IllegalArgumentException("Такого поста не существует!");
+        if(post == null) throw new  IllegalArgumentException("Post was not found!");{
+            
+        }
 
         Comment comment = Comment.builder()
                 .createdDate(LocalDateTime.now())
@@ -53,7 +55,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment findById(Long id) throws ObjectNotFoundException {
-        return commentRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error: ", id));
+        return commentRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Comment was not found: ", id));
     }
 
     @Override

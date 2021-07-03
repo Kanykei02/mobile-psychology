@@ -2,6 +2,7 @@ package kg.ItAcademy.mobilepsychology.service;
 
 import kg.ItAcademy.mobilepsychology.entity.Feedback;
 import kg.ItAcademy.mobilepsychology.entity.User;
+import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.FeedbackModel;
 import kg.ItAcademy.mobilepsychology.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,18 @@ public class FeedbackServiceImpl implements FeedbackService{
         User user = userService.findByUsername(username);
         User user1 = userService.findById(feedbackModel.getPsychologistId());
 
-        Feedback feedback = Feedback.builder()
-                .psychologistId(user1)
-                .userId(user)
-                .createdDate(LocalDateTime.now())
-                .title(feedbackModel.getTitle())
-                .text(feedbackModel.getText())
-                .build();
-        return feedbackRepository.save(feedback);
+        if (user == user1){
+            throw new ObjectNotFoundException("It is not possible!");
+        } else {
+            Feedback feedback = Feedback.builder()
+                    .psychologistId(user1)
+                    .userId(user)
+                    .createdDate(LocalDateTime.now())
+                    .title(feedbackModel.getTitle())
+                    .text(feedbackModel.getText())
+                    .build();
+            return feedbackRepository.save(feedback);
+        }
     }
 
     @Override

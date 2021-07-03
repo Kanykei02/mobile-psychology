@@ -39,7 +39,7 @@ public class ResumeServiceImpl implements ResumeService{
         Resume resume = Resume.builder()
                 .createdDate(LocalDateTime.now())
                 .picture(picture)
-                .userId(user1)
+                .username(user1)
                 .text(resumeModel.getText())
                 .title(resumeModel.getTitle())
                 .build();

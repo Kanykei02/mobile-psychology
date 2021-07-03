@@ -21,8 +21,8 @@ public class Resume {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    @JoinColumn(name = "username", nullable = false)
+    private User username;
 
     @Column(name = "title", nullable = false)
     private String title;

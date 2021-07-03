@@ -37,7 +37,8 @@ public class Resume {
     @JoinColumn(name = "picture")
     private Picture picture;
 
-
+    @Column(name = "status")
+    private Long status;
     //добавить статус три статуса(рассмотрен, отклонен, на рассмотрение)
     //получать по статусам()
     //обновление заявки по статусу/айди

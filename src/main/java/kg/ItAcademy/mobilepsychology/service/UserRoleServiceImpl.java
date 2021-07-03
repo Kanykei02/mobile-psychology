@@ -4,7 +4,6 @@ import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.entity.UserRole;
 import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.RoleModel;
-import kg.ItAcademy.mobilepsychology.model.UserModel;
 import kg.ItAcademy.mobilepsychology.repository.RoleRepository;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;

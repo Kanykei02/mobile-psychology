@@ -33,9 +33,9 @@ public class TimetableServiceImpl implements TimetableService{
         User user1 = userService.findById(timetableModel.getUser());
 
         if (user1 == null) {
-            throw new ObjectNotFoundException("Error!");
+            throw new ObjectNotFoundException("User not found!");
         } else if (user1 == user) {
-            throw new ObjectNotFoundException("Error");
+            throw new ObjectNotFoundException("This is not possible");
         } else {
             Timetable timetable = Timetable.builder()
                     .createdDate(LocalDateTime.now())
@@ -55,7 +55,7 @@ public class TimetableServiceImpl implements TimetableService{
 
     @Override
     public Timetable findById(Long id) throws ObjectNotFoundException {
-        return timetableRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error ", id));
+        return timetableRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Timetable is not found ", id));
     }
 
     @Override

@@ -30,9 +30,6 @@ public class UserServiceImpl implements UserService{
     private UserRoleService userRoleService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private PictureService pictureService;
 
     @Override

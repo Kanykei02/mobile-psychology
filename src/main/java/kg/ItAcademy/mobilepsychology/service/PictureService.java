@@ -9,5 +9,5 @@ import java.util.List;
 public interface PictureService {
     Picture createPicture(MultipartFile multipartFile);
     List<Picture> getAllPictures();
-    Picture getById(Long id) throws ObjectNotFoundException;
+    Picture findById(Long id) throws ObjectNotFoundException;
 }

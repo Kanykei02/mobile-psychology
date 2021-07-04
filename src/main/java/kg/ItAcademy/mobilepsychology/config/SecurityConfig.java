@@ -42,22 +42,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/posts/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
 
                 .antMatchers(HttpMethod.GET, "/api/comment/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/comment/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/comment/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/comment/**").permitAll()//hasAnyRole("USER", "ADMIN", "PSYCHOLOGIST")
+                .antMatchers(HttpMethod.DELETE, "/api/comment/**").permitAll()//hasAnyRole("USER", "ADMIN", "PSYCHOLOGIST")
 
                 .antMatchers(HttpMethod.GET, "/api/like/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/like/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/like/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/like/**").permitAll()//hasAnyRole("USER", "ADMIN", "PSYCHOLOGIST")
+                .antMatchers(HttpMethod.DELETE, "/api/like/**").permitAll()//hasAnyRole("USER", "ADMIN", "PSYCHOLOGIST")
 
-                .antMatchers(HttpMethod.GET, "/api/follower/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/follower/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/follower/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/follower/**").permitAll()//hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/follower/**").permitAll()//hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/follower/**").permitAll()//hasRole("USER")
 
                 .antMatchers(HttpMethod.GET, "/api/feedback").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/feedback").hasRole("USER")
                 .antMatchers(HttpMethod.DELETE, "/api/feedback").hasRole("USER")
 
-                .antMatchers(HttpMethod.GET, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/timetable/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/timetable/**").permitAll()//hasAnyRole("PSYCHOLOGIST", "ADMIN")
 

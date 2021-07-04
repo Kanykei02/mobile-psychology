@@ -44,6 +44,6 @@ public class User {
     private Long status;
 
     @ManyToOne
-    @JoinColumn(name = "profile_picture")
+    @JoinColumn(name = "profile_picture", nullable = true)
     private Picture profilePicture;
 }

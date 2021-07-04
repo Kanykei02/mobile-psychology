@@ -29,7 +29,7 @@ public class PostPictureServiceImpl implements PostPictureService{
 
     @Override
     public PostPicture create(PostPictureModel postPictureModel) {
-        Picture picture = pictureService.getById(postPictureModel.getPictureId());
+        Picture picture = pictureService.findById(postPictureModel.getPictureId());
         Post post = postService.findById(postPictureModel.getPostId());
 
         PostPicture postPicture = PostPicture.builder()

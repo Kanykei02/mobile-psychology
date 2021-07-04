@@ -34,7 +34,7 @@ public class ResumeServiceImpl implements ResumeService{
     public Resume create(ResumeModel resumeModel) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user1 = userService.findByUsername(username);
-        Picture picture = pictureService.getById(resumeModel.getPicture());
+        Picture picture = pictureService.findById(resumeModel.getPicture());
 
         Resume resume = Resume.builder()
                 .createdDate(LocalDateTime.now())

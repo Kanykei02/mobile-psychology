@@ -26,7 +26,7 @@ public class PictureController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable Long id) throws ObjectNotFoundException {
         try{
-            Picture picturesId = pictureService.getById(id);
+            Picture picturesId = pictureService.findById(id);
             return new ResponseEntity<>(picturesId, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);

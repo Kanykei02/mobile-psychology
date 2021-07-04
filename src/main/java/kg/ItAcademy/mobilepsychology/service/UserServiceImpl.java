@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
     public User saveWithPasswordEncode(UserModel userModel) {
         Optional<User> userLoginCheck = userRepository.findByUsername(userModel.getUsername());
         Optional<User> userEmailCheck = userRepository.findByEmail(userModel.getEmail());
-        Picture picture = pictureService.getById(userModel.getProfilePicture());
+        Picture picture = pictureService.findById(userModel.getProfilePicture());
 
         if(userLoginCheck.isPresent()){
             throw new AuthorizationException("This username already exists!");
@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String getTokenByAuthModel(AuthorizationModel authorizationModel) {
         String authResult = "";
+        System.out.println("test1");
         User user = findByUsername(authorizationModel.getUsername());
         if(user == null) authResult = "Invalid username/password!";
         else {
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService{
                 authResult = "Basic " + Base64.getEncoder().encodeToString(loginPassPair.getBytes());
             } else authResult = "Invalid username/password!";
         }
+        System.out.println("test2");
         return authResult;
     }
 
@@ -108,7 +110,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User changeStatusById(Long userId) {
         User user1 = findById(userId);
-        if(user1 == null) return null;
+        if(user1 == null);
         else {
             if (user1.getStatus() == 1) {
                 user1.setStatus(0l);

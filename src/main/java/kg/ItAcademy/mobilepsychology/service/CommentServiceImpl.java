@@ -35,17 +35,18 @@ public class CommentServiceImpl implements CommentService{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(username);
         Post post = postService.findById(commentModel.getPostId());
-        if(post == null) throw new  IllegalArgumentException("Post was not found!");{
-            
+        if(post == null) throw new IllegalArgumentException("Post was not found!");
+        else if(user == null) {
+            throw new ObjectNotFoundException("Something went wrong");
+        } else {
+            Comment comment = Comment.builder()
+                    .createdDate(LocalDateTime.now())
+                    .text(commentModel.getText())
+                    .post(post)
+                    .commentatorUser(user)
+                    .build();
+            return commentRepository.save(comment);
         }
-
-        Comment comment = Comment.builder()
-                .createdDate(LocalDateTime.now())
-                .text(commentModel.getText())
-                .post(post)
-                .commentatorUser(user)
-                .build();
-        return commentRepository.save(comment);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class PictureServiceImpl implements PictureService{
     }
 
     @Override
-    public Picture getById(Long id) throws ObjectNotFoundException {
-        return pictureRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Error: ", id));
+    public Picture findById(Long id) throws ObjectNotFoundException {
+        return pictureRepository.findById(id).orElse(null);
     }
 }

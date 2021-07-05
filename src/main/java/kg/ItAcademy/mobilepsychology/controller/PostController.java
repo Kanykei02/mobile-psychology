@@ -1,7 +1,6 @@
 package kg.ItAcademy.mobilepsychology.controller;
 
 import kg.ItAcademy.mobilepsychology.entity.Post;
-import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
 import kg.ItAcademy.mobilepsychology.model.PostModel;
 import kg.ItAcademy.mobilepsychology.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

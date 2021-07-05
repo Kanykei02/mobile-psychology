@@ -37,4 +37,9 @@ public class PictureController {
     public Picture create(@RequestParam(name = "file") MultipartFile multipartFile) {
         return pictureService.createPicture(multipartFile);
     }
+
+    @DeleteMapping("/{url}")
+    public void deleteByUrl(@PathVariable String url){
+        pictureService.deleteByUrl(url);
+    }
 }

@@ -10,4 +10,6 @@ public interface PictureService {
     Picture createPicture(MultipartFile multipartFile);
     List<Picture> getAllPictures();
     Picture findById(Long id) throws ObjectNotFoundException;
+    List<Picture> findAllByUrl(String url);
+    void deleteByUrl(String url);
 }

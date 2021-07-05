@@ -15,4 +15,5 @@ public class PostModel {
     private String title;
     private String info;
     private LocalDateTime createdDate;
+    private Long picture;
 }

@@ -20,8 +20,13 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    public Comment createOrUpdate(@RequestBody CommentsModel commentsModel){
-        return commentService.save(commentsModel);
+    public ResponseEntity createOrUpdate(@RequestBody CommentsModel commentsModel){
+        try{
+            Comment comment = commentService.save(commentsModel);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -55,5 +56,20 @@ public class PictureServiceImpl implements PictureService{
     @Override
     public Picture findById(Long id) throws ObjectNotFoundException {
         return pictureRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Picture> findAllByUrl(String url) {
+        return pictureRepository.findAllByUrl(url);
+    }
+
+    @Override
+    public void deleteByUrl(String url) {
+        try{
+            Cloudinary cloudinary = new Cloudinary(CLOUDINARY_URL);
+            cloudinary.uploader().destroy(url, ObjectUtils.emptyMap());
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

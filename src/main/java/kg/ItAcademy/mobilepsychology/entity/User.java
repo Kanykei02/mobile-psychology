@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -26,7 +27,7 @@ public class User {
     private String gender;
 
     @Column(name = "date_of_birth", nullable = false)
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -44,6 +45,6 @@ public class User {
     private Long status;
 
     @ManyToOne
-    @JoinColumn(name = "profile_picture", nullable = true)
+    @JoinColumn(name = "profile_picture")
     private Picture profilePicture;
 }

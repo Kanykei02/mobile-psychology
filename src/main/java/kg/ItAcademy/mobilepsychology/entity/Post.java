@@ -30,6 +30,10 @@ public class Post {
     @Column(name = "info", nullable = false)
     private String info;
 
+    @ManyToOne
+    @JoinColumn(name = "pictures")
+    private Picture picture;
+
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 }

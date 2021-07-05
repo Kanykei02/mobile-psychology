@@ -1,5 +1,6 @@
 package kg.ItAcademy.mobilepsychology.service;
 
+import kg.ItAcademy.mobilepsychology.entity.Picture;
 import kg.ItAcademy.mobilepsychology.entity.Post;
 import kg.ItAcademy.mobilepsychology.entity.User;
 import kg.ItAcademy.mobilepsychology.exception.ObjectNotFoundException;
@@ -20,6 +21,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PictureService pictureService;
+
     @Override
     public Post save(Post post) {
         return postRepository.save(post);
@@ -29,12 +33,16 @@ public class PostServiceImpl implements PostService {
     public Post save(PostModel postModel) {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
     User user = userService.findByUsername(username);
-
+        Picture picture = null;
+        if(postModel.getPicture() != null){
+            picture = pictureService.findById(postModel.getPicture());
+        }
         Post post = Post.builder()
                 .psychologistId(user)
                 .createdDate(LocalDateTime.now())
                 .title(postModel.getTitle())
                 .info(postModel.getInfo())
+                .picture(picture)
                 .build();
         return postRepository.save(post);
     }

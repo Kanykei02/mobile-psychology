@@ -23,7 +23,7 @@ public class Picture {
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
 
-    @Column(name = "url", nullable = false)// подумать
+    @Column(name = "url", nullable = false)
     private String url;
 
     @Column(name = "format", nullable = false)

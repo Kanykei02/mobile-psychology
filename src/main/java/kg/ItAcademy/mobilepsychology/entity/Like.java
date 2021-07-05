@@ -25,7 +25,7 @@ public class Like {
     private Post postId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Тоже связь
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "date_created", nullable = false)

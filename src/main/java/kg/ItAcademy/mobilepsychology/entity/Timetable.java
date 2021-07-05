@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,11 +25,11 @@ public class Timetable {
     private User psychologistId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Тоже связь
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "meeting_date")
-    private LocalDateTime dateTime;
+    private LocalDate dateTime;
 
     @Column(name = "date_created", nullable = false)
     private LocalDateTime createdDate;

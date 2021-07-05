@@ -41,8 +41,6 @@ public class UserServiceImpl implements UserService{
             picture = pictureService.findById(userModel.getProfilePicture());
         }
 
-
-
         if(userLoginCheck.isPresent()){
             throw new AuthorizationException("This username already exists!");
         } else if (userEmailCheck.isPresent()) {

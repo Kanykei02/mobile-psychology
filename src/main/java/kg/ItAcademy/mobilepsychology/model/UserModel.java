@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserModel {
     private String fullName;
     private String gender;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private String username;
     private String password;

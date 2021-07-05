@@ -46,4 +46,6 @@ public class LikeController {
     public void deleteById(@PathVariable Long likeId){
         likeService.deleteById(likeId);
     }
+
+    //getLikesByUsername
 }

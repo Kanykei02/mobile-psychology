@@ -35,13 +35,13 @@ public class ResumeController {
         resumeService.deleteById(resumeId);
     }
 
-    @GetMapping("/{status}")
+    @GetMapping("/status/{status}")
     public List<Resume> getAllResumeByStatus(@PathVariable Long status){
         return resumeService.getAllByStatus(status);
     }
 
-    @PostMapping("/{resume}/{resumeId}")
-    public Resume updateResume(@PathVariable ResumeModel resume, Long resumeId){
+    @PostMapping("/{resumeId}")
+    public Resume updateResume(@RequestBody ResumeModel resume, @PathVariable  Long resumeId){
         return resumeService.updateResumeById(resume, resumeId);
     }
 }

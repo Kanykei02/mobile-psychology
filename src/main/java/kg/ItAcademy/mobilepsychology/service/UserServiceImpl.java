@@ -36,7 +36,12 @@ public class UserServiceImpl implements UserService{
     public User saveWithPasswordEncode(UserModel userModel) {
         Optional<User> userLoginCheck = userRepository.findByUsername(userModel.getUsername());
         Optional<User> userEmailCheck = userRepository.findByEmail(userModel.getEmail());
-        Picture picture = pictureService.findById(userModel.getProfilePicture());
+        Picture picture = null;
+        if(userModel.getProfilePicture() != null){
+            picture = pictureService.findById(userModel.getProfilePicture());
+        }
+
+
 
         if(userLoginCheck.isPresent()){
             throw new AuthorizationException("This username already exists!");

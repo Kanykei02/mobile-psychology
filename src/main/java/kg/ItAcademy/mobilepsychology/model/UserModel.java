@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class UserModel {
     private String fullName;
     private String gender;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String email;
     private String username;
     private String password;

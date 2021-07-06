@@ -69,4 +69,9 @@ public class AuthorizationController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
     }
+
+    @GetMapping("/username/{username}")
+    public User getUserByUsername(@PathVariable String username){
+        return userService.findUserByUsername(username);
+    }
 }

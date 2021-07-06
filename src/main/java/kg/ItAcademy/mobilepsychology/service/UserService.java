@@ -16,4 +16,5 @@ public interface UserService {
     String getTokenByAuthModel(AuthorizationModel authModel);
     void deleteById(Long id);
     User changeStatusById(Long userId);
+    User findUserByUsername(String username);
 }

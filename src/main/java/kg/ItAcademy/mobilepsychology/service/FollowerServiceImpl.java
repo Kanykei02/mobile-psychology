@@ -36,7 +36,7 @@ public class FollowerServiceImpl implements FollowerService{
         Optional<Follower> followerCheckById = followerRepository.findById(user1.getId());
         if(followerCheckById.isPresent()){
             throw new ObjectNotFoundException("It is not possible!");
-        } else if(user == user1){
+        } else if(user1 == user){
             throw new ObjectNotFoundException("It is not possible!");
         } else {
             Follower follower = Follower.builder()

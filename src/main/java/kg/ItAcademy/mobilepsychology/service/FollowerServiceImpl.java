@@ -35,9 +35,9 @@ public class FollowerServiceImpl implements FollowerService{
 
         Optional<Follower> followerCheckById = followerRepository.findById(user1.getId());
         if(followerCheckById.isPresent()){
-            throw new ObjectNotFoundException("Error!");
+            throw new ObjectNotFoundException("It is not possible!");
         } else if(user == user1){
-            throw new ObjectNotFoundException("Error!");
+            throw new ObjectNotFoundException("It is not possible!");
         } else {
             Follower follower = Follower.builder()
                     .dateFollowed(LocalDateTime.now())
@@ -55,7 +55,7 @@ public class FollowerServiceImpl implements FollowerService{
 
     @Override
     public Follower findById(Long id) throws ObjectNotFoundException {
-        return followerRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Подписчик не найден: ", id));
+        return followerRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Follower was not found: ", id));
     }
 
     @Override
@@ -64,12 +64,7 @@ public class FollowerServiceImpl implements FollowerService{
     }
 
     @Override
-    public List<Follower> findAllByUsername(String username) throws ObjectNotFoundException {
-        List<Follower> followerCheckByUsername = followerRepository.findAllByFollowerUser_Username(username);
-        if(followerCheckByUsername == null){
-            throw new ObjectNotFoundException("Error!");
-        } else {
-            return followerRepository.findAllByFollowerUser_Username(username);
-        }
+    public List<Follower> findAllByUsername(String username) {
+        return followerRepository.findAllByFollowerUser_Username(username);
     }
 }

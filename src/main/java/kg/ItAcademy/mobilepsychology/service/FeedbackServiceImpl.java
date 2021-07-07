@@ -52,8 +52,8 @@ public class FeedbackServiceImpl implements FeedbackService{
     }
 
     @Override
-    public Feedback findById(Long id) {
-        return feedbackRepository.findById(id).orElse(null);
+    public Feedback findById(Long id) throws ObjectNotFoundException{
+        return feedbackRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Feedback was not found!"));
     }
 
     @Override

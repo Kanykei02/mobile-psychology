@@ -4,6 +4,8 @@ import kg.ItAcademy.mobilepsychology.entity.Resume;
 import kg.ItAcademy.mobilepsychology.model.ResumeModel;
 import kg.ItAcademy.mobilepsychology.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +28,13 @@ public class ResumeController {
     }
 
     @GetMapping("/{resumeId}")
-    public Resume getResumeById(@PathVariable Long resumeId){
-        return resumeService.findById(resumeId);
+    public ResponseEntity findById(@PathVariable Long resumeId){
+        try{
+            Resume resume = resumeService.findById(resumeId);
+            return new ResponseEntity<>(resume, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{resumeId}")

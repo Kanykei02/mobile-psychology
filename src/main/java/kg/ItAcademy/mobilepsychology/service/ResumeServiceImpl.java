@@ -34,8 +34,10 @@ public class ResumeServiceImpl implements ResumeService{
     public Resume create(ResumeModel resumeModel) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user1 = userService.findByUsername(username);
-        Picture picture = pictureService.findById(resumeModel.getPicture());
-
+        Picture picture = null;
+        if(resumeModel.getPicture() != null){
+            picture = pictureService.findById(resumeModel.getPicture());
+        }
         Resume resume = Resume.builder()
                 .createdDate(LocalDateTime.now())
                 .picture(picture)
@@ -50,7 +52,7 @@ public class ResumeServiceImpl implements ResumeService{
 
     @Override
     public Resume findById(Long id) throws ObjectNotFoundException{
-        return resumeRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Resume is not found!"));
+        return resumeRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Resume was not found!"));
     }
 
     @Override

@@ -66,7 +66,6 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public void deleteById(Long id) throws ObjectNotFoundException{
-
         commentRepository.deleteById(id);
     }
 }

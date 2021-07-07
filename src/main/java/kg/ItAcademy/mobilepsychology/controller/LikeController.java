@@ -47,5 +47,8 @@ public class LikeController {
         likeService.deleteById(likeId);
     }
 
-    //getLikesByUsername
+    @GetMapping("/username/{username}")
+    public List<Like> getLikesByUsername(@PathVariable String username){
+        return likeService.findAllByUsername(username);
+    }
 }
